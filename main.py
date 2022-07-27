@@ -94,7 +94,7 @@ def main(argv: List[str]) -> None:
             if outRom.extension == '.z64':
                 N64Rom.byteSwapFour(inRom.buffer)
             if outRom.extension == '.v64':
-                N64Rom.byteSwapFour(inRom.buffer)
+                N64Rom.byteSwapTwo(N64Rom.byteSwapFour(inRom.buffer))
         case RomType.Z64:
             if outRom.extension == '.n64':
                 N64Rom.byteSwapFour(inRom.buffer)
@@ -107,6 +107,7 @@ def main(argv: List[str]) -> None:
                 N64Rom.byteSwapTwo(inRom.buffer)
         case RomType.INVALID:
             print("Judging by the magic bytes, it isn't a valid Nintendo64 Rom")
+            sys.exit(1)
 
     outRom.path.write_bytes(inRom.buffer)
 
